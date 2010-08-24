@@ -16,12 +16,12 @@ Option Explicit
 Private m_id As Integer
 Private m_name As String
 
-Public Property Let ID(value As Integer)
+Public Property Let Id(value As Integer)
     m_id = value
 End Property
 
-Public Property Get ID() As Integer
-    ID = m_id
+Public Property Get Id() As Integer
+    Id = m_id
 End Property
 
 Public Property Let Name(value As String)
@@ -32,20 +32,73 @@ Public Property Get Name() As String
     Name = m_name
 End Property
 
+Public Sub Delete()
+    Dim conn As New ADODB.Connection
+    conn = db
+    
+    On Error GoTo ErrHandler
+        conn.Open
+       
+        Dim where As String
+        
+        where = "WHERE id = " & Id
+        
+        conn.Execute deleteSql("rooms", where)
+       
+        conn.Close
+    Exit Sub
+ErrHandler:
+    'error message here
+End Sub
+
+Public Sub Load(v_id As Integer)
+    Dim rs As New ADODB.Recordset
+    Dim field As ADODB.field
+    Dim conn As New ADODB.Connection
+    
+    conn = db
+    
+    On Error GoTo ErrHandler
+        conn.Open
+        rs.Open "SELECT * FROM rooms WHERE id = " & v_id, conn
+    
+        Id = rs(0).value
+        Name = rs(1).value
+    
+        rs.Close
+        conn.Close
+    Exit Sub
+    
+ErrHandler:
+    'error message here!
+End Sub
+
 Public Sub Upsert()
     Dim conn As New ADODB.Connection
     conn = db
     
-    conn.Open
-    
-    If ID = 0 Then
-        conn.Execute "INSERT INTO rooms (name) VALUES ('" & Name & "')"
-    Else
-        conn.Execute "UPDATE rooms SET name = '" & Name & "' WHERE id = " & ID
-    End If
-    
-    conn.Close
+    On Error GoTo ErrHandler
+        conn.Open
+
+        If Id = 0 Then
+            'insert
+            Dim fields(0) As String
+            fields(0) = "name"
+        
+            Dim data(0) As Variant
+            data(0) = Name
+            
+            conn.Execute insertSql("rooms", data, fields)
+        Else
+            'update
+            Dim where As String
+            
+            where = "WHERE id = " & Id
+            
+            conn.Execute updateSql("rooms", Name, "name", where)
+        End If
+    Exit Sub
+ErrHandler:
+    'error message here!
 End Sub
-
-
 
