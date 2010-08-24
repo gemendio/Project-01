@@ -31,11 +31,14 @@ Public Function updateSql(table_name As String, data() As Variant, fields() As S
 
         field_ubound = UBound(fields)
         
-        Dim set_sql(0 To 6) As String
+        Dim set_sql(6) As String
 
 
-        For i = 0 To field_ubound
-            set_sql(i) = fields(i) & " = '" & data(i)
+        For i = 0 To 6
+            If i <= field_ubound Then
+                set_sql(i) = fields(i) & " = '" & data(i)
+            Else
+                arrayremoveitem
         Next i
 
 

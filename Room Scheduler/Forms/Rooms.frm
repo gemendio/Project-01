@@ -20,8 +20,9 @@ Option Explicit
 Private Sub Form_Load()
 
     Dim room As New ModelRoom
-    room.Name = "ECE Laboratory"
+    room.Load (3)
+
+    room.Name = "sdfdsfad"
     room.Upsert
-    
     
 End Sub

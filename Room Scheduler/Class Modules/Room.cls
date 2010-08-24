@@ -96,7 +96,7 @@ Public Sub Upsert()
             fields(0) = "name"
             data(0) = Name
             where = "WHERE id = " & Id
-          
+
             conn.Execute updateSql("rooms", data, fields, where)
         End If
         

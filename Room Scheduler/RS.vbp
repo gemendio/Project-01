@@ -1,9 +1,12 @@
 Type=Exe
 Reference=*\G{00020430-0000-0000-C000-000000000046}#2.0#0#..\..\..\..\..\WINDOWS\system32\stdole2.tlb#OLE Automation
+Reference=*\G{4A40A2AA-DD1C-11CE-B7A6-00AA006EC3D4}#2.0#0#..\..\..\..\..\Program Files\Microsoft Visual Studio\Common\Tools\APE\ODBCTOOL.DLL#ODBC Driver & Data Source Name Functions
+Reference=*\G{2A75196C-D9EB-4129-B803-931327F72D5C}#2.8#0#..\..\..\..\..\Program Files\Common Files\system\ado\msado15.dll#Microsoft ActiveX Data Objects 2.8 Library
 Class=ModelRoom; Class Modules\Room.cls
 Module=Global; Global Modules\Global.bas
 Form=Forms\Rooms.frm
-Startup="Sub Main"
+Startup="Rooms"
+HelpFile=""
 Command32=""
 Name="RoomScheduler"
 HelpContextID="0"
