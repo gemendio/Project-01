@@ -25,19 +25,23 @@ Public Function deleteSql(table_name As String, where As String)
 End Function
 'this function is not yet done
 Public Function updateSql(table_name As String, data() As Variant, fields() As String, where As String)
-        Dim sql_set() As String
-        Dim field As Variant
-        Dim n As Integer
-        
-        n = 0
-        
-        For Each field In fields
-            sql_set(n) = field & " = " & data(n)
-            n = n + 1
-        Next
+    If (UBound(data) = UBound(fields)) And table_name <> "" Then
 
-        updateSql = "UPDATE " & table_name _
-            & " SET " & Join(sql_set, ", ") & where
+        Dim field_ubound, i As Integer
+
+        field_ubound = UBound(fields)
         
+        Dim set_sql(0 To 6) As String
+
+
+        For i = 0 To field_ubound
+            set_sql(i) = fields(i) & " = '" & data(i)
+        Next i
+
+
+MsgBox Join(set_sql, "', ")
+        updateSql = "UPDATE " & table_name _
+            & " SET " & Join(sql_set, "', ") & where
+    End If
 End Function
 

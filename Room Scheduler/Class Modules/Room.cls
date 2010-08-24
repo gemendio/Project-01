@@ -79,13 +79,13 @@ Public Sub Upsert()
     
     On Error GoTo ErrHandler
         conn.Open
+        
+        Dim fields(0) As String
+        Dim data(0) As Variant
 
         If Id = 0 Then
             'insert
-            Dim fields(0) As String
             fields(0) = "name"
-        
-            Dim data(0) As Variant
             data(0) = Name
             
             conn.Execute insertSql("rooms", data, fields)
@@ -93,10 +93,14 @@ Public Sub Upsert()
             'update
             Dim where As String
             
+            fields(0) = "name"
+            data(0) = Name
             where = "WHERE id = " & Id
-            
-            conn.Execute updateSql("rooms", Name, "name", where)
+          
+            conn.Execute updateSql("rooms", data, fields, where)
         End If
+        
+        conn.Close
     Exit Sub
 ErrHandler:
     'error message here!

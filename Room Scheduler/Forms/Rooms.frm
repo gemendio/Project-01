@@ -19,8 +19,9 @@ Option Explicit
 
 Private Sub Form_Load()
 
-    Dim rm As New ModelRoom
-    rm.Name = "Sample"
-    rm.Upsert
+    Dim room As New ModelRoom
+    room.Name = "ECE Laboratory"
+    room.Upsert
+    
     
 End Sub
