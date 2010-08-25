@@ -23,28 +23,23 @@ Public Function deleteSql(table_name As String, where As String)
         deleteSql = "DELETE FROM " & table_name & " " & where
     End If
 End Function
-'this function is not yet done
+
 Public Function updateSql(table_name As String, data() As Variant, fields() As String, where As String)
     If (UBound(data) = UBound(fields)) And table_name <> "" Then
-
-        Dim field_ubound, i As Integer
-
-        field_ubound = UBound(fields)
+        Dim i As Integer
         
-        Dim set_sql(6) As String
+        Dim set_sql As String
 
-
-        For i = 0 To 6
-            If i <= field_ubound Then
-                set_sql(i) = fields(i) & " = '" & data(i)
+        For i = 0 To UBound(fields)
+            If i <> UBound(fields) Then
+                set_sql = set_sql & fields(i) & " = '" & data(i) & "', "
             Else
-                arrayremoveitem
+                set_sql = set_sql & fields(i) & " = '" & data(i) & "' "
+            End If
         Next i
 
-
-MsgBox Join(set_sql, "', ")
         updateSql = "UPDATE " & table_name _
-            & " SET " & Join(sql_set, "', ") & where
+            & " SET " & set_sql & where
     End If
 End Function
 

@@ -20,9 +20,12 @@ Option Explicit
 Private Sub Form_Load()
 
     Dim room As New ModelRoom
-    room.Load (3)
+    Dim user As New ModelUser
+    Dim section As New ModelSection
 
-    room.Name = "sdfdsfad"
-    room.Upsert
+section.Load (2)
+section.Delete
+    'MsgBox user.FirstName & " " & user.MiddleName & " " & user.LastName
+    
     
 End Sub
