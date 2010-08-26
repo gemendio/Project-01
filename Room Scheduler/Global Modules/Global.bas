@@ -43,3 +43,15 @@ Public Function updateSql(table_name As String, data() As Variant, fields() As S
     End If
 End Function
 
+Public Static Function getAll(table As String) As ADODB.Recordset
+    Dim rs As New ADODB.Recordset
+    Dim conn As New ADODB.Connection
+    
+    conn = db
+    conn.Open
+    rs.Open "SELECT * FROM " & table, conn
+ 
+    getAll = rs
+
+End Function
+

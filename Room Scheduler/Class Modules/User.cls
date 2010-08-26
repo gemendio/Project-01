@@ -109,25 +109,17 @@ Public Sub Upsert()
             'update
             Dim where As String
             
-            If LastName <> "" Then
-                fields(0) = "last_name"
-                data(0) = LastName
-            End If
+            fields(0) = "last_name"
+            data(0) = LastName
+        
+            fields(1) = "first_name"
+            data(1) = FirstName
+        
+            fields(2) = "middle_name"
+            data(2) = MiddleName
             
-            If FirstName <> "" Then
-                fields(1) = "first_name"
-                data(1) = FirstName
-            End If
-            
-            If MiddleName <> "" Then
-                fields(2) = "middle_name"
-                data(2) = MiddleName
-            End If
-            
-            If UserType <> "" Then
-                fields(3) = "type"
-                data(3) = UserType
-            End If
+            fields(3) = "type"
+            data(3) = UserType
 
             where = "WHERE id = " & Id
 
@@ -137,6 +129,7 @@ Public Sub Upsert()
         conn.Close
     Exit Sub
 ErrHandler:
+    MsgBox "Error"
     'error message here!
 End Sub
 

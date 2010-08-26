@@ -6,7 +6,7 @@ BEGIN
   DataSourceBehavior  = 0  'vbNone
   MTSTransactionMode  = 0  'NotAnMTSObject
 END
-Attribute VB_Name = "ModelSection"
+Attribute VB_Name = "ModelSubject"
 Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = True
 Attribute VB_PredeclaredId = False
@@ -28,7 +28,7 @@ Public Property Get Name() As String
     Name = m_name
 End Property
 
-Public Property Let Name(value As String)
+Public Property Let Id(value As String)
     m_name = value
 End Property
 
@@ -41,11 +41,10 @@ Public Sub Load(v_id As Integer)
     
     On Error GoTo ErrHandler
         conn.Open
-        rs.Open "SELECT * FROM sections WHERE id = " & v_id, conn
+        rs.Open "SELECT * FROM subjects WHERE id = " & v_id, conn
     
         Id = rs(0).value
         Name = rs(1).value
-        UserId = rs(2).value
     
         rs.Close
         conn.Close
@@ -62,26 +61,25 @@ Public Sub Upsert()
     On Error GoTo ErrHandler
         conn.Open
         
-        Dim fields(1) As String
-        Dim data(1) As Variant
+        Dim fields(0) As String
+        Dim data(0) As Variant
 
         If Id = 0 Then
+            'insert
             fields(0) = "name"
-            fields(1) = "user_id"
-            
             data(0) = Name
-            data(1) = UserId
             
-            conn.Execute insertSql("sections", data, fields)
+            conn.Execute insertSql("subjects", data, fields)
         Else
+            'update
             Dim where As String
             
             fields(0) = "name"
             data(0) = Name
-       
+
             where = "WHERE id = " & Id
 
-            conn.Execute updateSql("sections", data, fields, where)
+            conn.Execute updateSql("subjects", data, fields, where)
         End If
         
         conn.Close
@@ -101,9 +99,10 @@ Public Sub Delete()
         
         where = "WHERE id = " & Id
         
-        conn.Execute deleteSql("sections", where)
+        conn.Execute deleteSql("subjects", where)
         conn.Close
     Exit Sub
 ErrHandler:
     'error message here
 End Sub
+
