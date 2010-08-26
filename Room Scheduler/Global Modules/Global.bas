@@ -43,15 +43,21 @@ Public Function updateSql(table_name As String, data() As Variant, fields() As S
     End If
 End Function
 
-Public Static Function getAll(table As String) As ADODB.Recordset
+Public Static Function getAll(table As String) As ModelRoom()
     Dim rs As New ADODB.Recordset
     Dim conn As New ADODB.Connection
-    
+    Dim count As Integer
+    count = 3
+    'select count
+    Dim rooms() As ModelRoom
+    ReDim rooms(1 To count) As ModelRoom
+    'rooms(0) = ModelRoom.Load(2)
+        
     conn = db
     conn.Open
     rs.Open "SELECT * FROM " & table, conn
  
     getAll = rs
-
+    
 End Function
 

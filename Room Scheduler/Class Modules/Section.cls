@@ -62,16 +62,13 @@ Public Sub Upsert()
     On Error GoTo ErrHandler
         conn.Open
         
-        Dim fields(1) As String
-        Dim data(1) As Variant
+        Dim fields(0) As String
+        Dim data(0) As Variant
 
         If Id = 0 Then
             fields(0) = "name"
-            fields(1) = "user_id"
-            
             data(0) = Name
-            data(1) = UserId
-            
+
             conn.Execute insertSql("sections", data, fields)
         Else
             Dim where As String
