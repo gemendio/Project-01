@@ -22,11 +22,9 @@ Private Sub Form_Load()
     Dim room As New ModelRoom
     Dim user As New ModelUser
     Dim section As New ModelSection
-    Dim o As Object
-    
-    
-Set o = getAll("users")
-MsgBox o
+
+section.Load (2)
+section.Delete
     'MsgBox user.FirstName & " " & user.MiddleName & " " & user.LastName
     
     
